@@ -1,13 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button, Image } from 'react-native'
-// Import NavigationContainer dan createBottomTabNavigator
+import { View, Text, Button, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-// Import kedua logo home dan progate 
-import HomeIcon from './assets/bottomTabIcons/home.png'
-import ProgateIcon from './assets/bottomTabIcons/progate.png'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
-// Tab Navigation adalah menu pada aplikasi yang biasanya terletak pada bawah sendiri atau atas sendiri.
+//  Drawer Navigation adalah menu pada aplikasi yang biasanya terletak pada pojok kiri atau pojok kanan, biasanya muncul dengan cara kita menarik keluar.
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -34,35 +30,15 @@ const ProgateScreen = ({ navigation }) => {
   )
 }
 
-// Membuat BottomTabNavigator dan menetapkanya ke sebuah constant yang diberi nama Tab
-const Tab = createBottomTabNavigator()
+const Drawer = createDrawerNavigator()
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        {/*Membuat sebuah tab dan bisa menambah option untuk mengganti bagaimana sebuah tab akan terlihat. Pastikan bahwa tabBarIcon merupakan sebuah function. */}
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: () => (
-              <Image source={HomeIcon} style={styles.homeIcon} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Progate"
-          component={ProgateScreen}
-          options={{
-            tabBarLabel: 'Progate',
-            tabBarIcon: () => (
-              <Image source={ProgateIcon} style={styles.progateIcon} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Progate" component={ProgateScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   )
 }
@@ -76,15 +52,6 @@ const styles = StyleSheet.create({
   marginBottom20: {
     marginBottom: 20,
   },
-  homeIcon: {
-    width: 20,
-    height: 20,
-  },
-  progateIcon: {
-    width: 40,
-    height: 40,
-  },
 })
-
 
 export default App
