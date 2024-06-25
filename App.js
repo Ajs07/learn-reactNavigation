@@ -45,9 +45,34 @@ const App = () => {
     // Code yang berhubungan dengan navigasi harus dibungkus dengan <NavigationContainer>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        {/* Tambahkan ProgateScreen */}
-        <Stack.Screen name="Progate" component={ProgateScreen} />
+        <Stack.Screen name="Home" 
+        component={HomeScreen} 
+        options={{
+          title: 'Home Progate',
+          headerStyle: {
+            backgroundColor: '#380953',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+        />
+        <Stack.Screen
+          name="Progate"
+          component={ProgateScreen}
+          // berfungsi untuk konfigurasi dari header bar dengan menambahkan options
+          options={{
+            title: 'Progate React Native',
+            headerStyle: {
+              backgroundColor: '#380953',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
