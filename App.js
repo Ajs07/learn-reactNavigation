@@ -1,44 +1,21 @@
 import React from 'react'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Home from './screens/home'
+import Progate from './screens/progate'
+import Contact from './screens/contact'
 
-//  Drawer Navigation adalah menu pada aplikasi yang biasanya terletak pada pojok kiri atau pojok kanan, biasanya muncul dengan cara kita menarik keluar.
-
-const HomeScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.marginBottom20}>Home Screen</Text>
-      <Button
-        style={styles.button}
-        title="Pergi ke Progate"
-        onPress={() => {
-          navigation.navigate('Progate')
-        }}
-      />
-    </View>
-  )
-}
-
-const ProgateScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome to Progate</Text>
-      <Text style={styles.marginBottom20}>Ayo belajar!</Text>
-      <Button title="Kembali" onPress={() => navigation.goBack()} />
-    </View>
-  )
-}
-
-const Drawer = createDrawerNavigator()
+const Stack = createNativeStackNavigator()
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Progate" component={ProgateScreen} />
-      </Drawer.Navigator>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Progate" component={Progate} />
+        <Stack.Screen name="Contact" component={Contact} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
