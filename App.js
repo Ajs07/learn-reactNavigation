@@ -1,79 +1,68 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-// Import NavigationContainer dan createNativeStackNavigator
+import { View, Text, StyleSheet, Button, Image } from 'react-native'
+// Import NavigationContainer dan createBottomTabNavigator
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+// Import kedua logo home dan progate 
+import HomeIcon from './assets/bottomTabIcons/home.png'
+import ProgateIcon from './assets/bottomTabIcons/progate.png'
 
-// melakukan perpindahan data antar component
+// Tab Navigation adalah menu pada aplikasi yang biasanya terletak pada bawah sendiri atau atas sendiri.
+
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text style={styles.marginBottom20}>Home Screen</Text>
       <Button
+        style={styles.button}
         title="Pergi ke Progate"
-        // untuk pengiriman data masih menggunakan navigation.navigate() tapi ada tambahan argument
         onPress={() => {
-          // Argument ke-1 adalah untuk nama halaman yang akan dituju dan argument yang ke-2 adalah untuk data yang akan kita kirim 
-          navigation.navigate('Progate', {
-            name: 'Ninja Ken',
-            language: 'React Native',
-          })
+          navigation.navigate('Progate')
         }}
       />
     </View>
   )
 }
 
-// perpindahan data dalam component
-const ProgateScreen = ({ route, navigation }) => {
+const ProgateScreen = ({ navigation }) => {
   return (
-    // Data yang terkirim dari layar sebelumnya bisa diakses melalui route.params
     <View style={styles.container}>
-      <Text>Welcome to Progate, {route.params.name}!</Text>
-      <Text>Ayo belajar {route.params.language}!</Text>
+      <Text>Welcome to Progate</Text>
+      <Text style={styles.marginBottom20}>Ayo belajar!</Text>
       <Button title="Kembali" onPress={() => navigation.goBack()} />
     </View>
   )
 }
 
-// Membuat NativeStackNavigator dan menetapkanya ke sebuah constant yang diberi nama Stack
-const Stack = createNativeStackNavigator()
+// Membuat BottomTabNavigator dan menetapkanya ke sebuah constant yang diberi nama Tab
+const Tab = createBottomTabNavigator()
 
 const App = () => {
   return (
-    // Membuat NativeStackNavigator dan menetapkanya ke sebuah constant yang diberi nama Stack
-    // Code yang berhubungan dengan navigasi harus dibungkus dengan <NavigationContainer>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" 
-        component={HomeScreen} 
-        options={{
-          title: 'Home Progate',
-          headerStyle: {
-            backgroundColor: '#380953',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-        />
-        <Stack.Screen
-          name="Progate"
-          component={ProgateScreen}
-          // berfungsi untuk konfigurasi dari header bar dengan menambahkan options
+      <Tab.Navigator>
+        {/*Membuat sebuah tab dan bisa menambah option untuk mengganti bagaimana sebuah tab akan terlihat. Pastikan bahwa tabBarIcon merupakan sebuah function. */}
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
           options={{
-            title: 'Progate React Native',
-            headerStyle: {
-              backgroundColor: '#380953',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
+            tabBarLabel: 'Home',
+            tabBarIcon: () => (
+              <Image source={HomeIcon} style={styles.homeIcon} />
+            ),
           }}
         />
-      </Stack.Navigator>
+        <Tab.Screen
+          name="Progate"
+          component={ProgateScreen}
+          options={{
+            tabBarLabel: 'Progate',
+            tabBarIcon: () => (
+              <Image source={ProgateIcon} style={styles.progateIcon} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }
@@ -84,6 +73,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  marginBottom20: {
+    marginBottom: 20,
+  },
+  homeIcon: {
+    width: 20,
+    height: 20,
+  },
+  progateIcon: {
+    width: 40,
+    height: 40,
+  },
 })
+
 
 export default App
